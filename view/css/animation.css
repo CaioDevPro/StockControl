@@ -1,0 +1,24 @@
+
+input::placeholder{
+    transition: all 0.2s ease;
+}
+input:hover::placeholder{
+    color: #606060;
+}
+
+#send-button{
+    transition: all 0.2s ease;
+}
+#send-button:hover{
+    background-color: #808080;
+    color: white;
+    border-color: #505050;
+}
+
+.login a{
+    transition: all 0.2s ease;
+}
+.login a:hover{
+    text-decoration: underline;
+    color: blue;
+}

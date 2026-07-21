@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stock Control</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/index_style.css">
+    <link rel="stylesheet" href="../css/animation.css">
+</head>
+<body>
+    <header>
+        <h1>Stock Control</h1>
+        <h2>Controle de Estoque</h2>
+    </header>
+    <div class="login">
+        <form action="../../controller/login_controller.php" method="post" class="login-form">
+            <div class="div-email">
+                <input type="email" name="email" id="email-input" placeholder="email@email.com" required>
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#808080"><path d="M146.67-160q-27 0-46.84-19.83Q80-199.67 80-226.67v-506.66q0-27 19.83-46.84Q119.67-800 146.67-800h666.66q27 0 46.84 19.83Q880-760.33 880-733.33v506.66q0 27-19.83 46.84Q840.33-160 813.33-160H146.67ZM480-454.67 146.67-670v443.33h666.66V-670L480-454.67Zm0-66.66 330.67-212H150l330 212ZM146.67-670v-63.33V-226.67-670Z"/></svg>
+            </div>
+            <div class="div-password">
+                <input type="password" name="password" id="password-input" placeholder="password" required pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9\s])\S{8,}$" title="Mínimo de 8 caracteres, com maiúscula, minúscula, número e caractere especial. Sem espaços.">
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#808080"><path d="M229.17-429.17Q208-450.33 208-480q0-29.67 21.17-50.83Q250.33-552 280-552q29.67 0 50.83 21.17Q352-509.67 352-480q0 29.67-21.17 50.83Q309.67-408 280-408q-29.67 0-50.83-21.17ZM280-240q-100 0-170-70T40-480q0-100 70-170t170-70q70.33 0 124.5 33.67 54.17 33.66 85.5 97.66h354.67L960-473.33l-171.33 162L703.33-374 618-311.33l-78.33-60H490q-27.33 58-81.17 94.66Q355-240 280-240Zm0-66.67q57.33 0 104.17-37Q431-380.67 445-438h117.67L618-394.33l86-62.34L782.33-397 864-474.67 816.67-522H445q-12.67-54.67-58.83-93Q340-653.33 280-653.33q-72 0-122.67 50.66Q106.67-552 106.67-480t50.66 122.67Q208-306.67 280-306.67Z"/></svg>
+            </div>
+            <button id="send-button">ENTRAR</button>
+        </form>
+        <p>Não tem uma conta? <a href="">Cadastre-se</a></p>   
+    </div>
+</body>
+</html>
