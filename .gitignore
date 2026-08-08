@@ -1,0 +1,18 @@
+# XAMPP
+*.log
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de IDE
+.vscode/
+.idea/
+
+# Cache
+/tmp/
+/cache/
+
+# Backup
+*.sql.bak
+*.zip
