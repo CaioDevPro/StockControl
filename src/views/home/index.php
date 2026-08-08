@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StockControl</title>
     <!-- Agora usando os CSS que vieram da pasta view/css/ -->
-    <link rel="stylesheet" href="/public/css/base.css">
-    <link rel="stylesheet" href="/public/css/index_style.css">
-    <link rel="stylesheet" href="/public/css/animation.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/css/base.css">
 </head>
 <body>
     <div class="container">
