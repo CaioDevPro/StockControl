@@ -26,7 +26,7 @@
         
         <div class="footer">
             <p>StockControl - Projeto Web 2</p>
-            <p>Equipe: [Seu Nome] e [Nome do Colega]</p>
+            <p>Equipe: Caio e Edrey</p>
         </div>
     </div>
 </body>
