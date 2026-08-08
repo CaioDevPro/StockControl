@@ -22,7 +22,7 @@ class User{
     }
 
     public function login_validate(){
-        if(($arquivo = fopen("../bd/users.csv", 'r')) !==false){
+        if(($arquivo = fopen(__DIR__ . "/../../bd/users.csv", 'r')) !==false){
             while(true){
                 $data = fgetcsv($arquivo, 1000, ';');
                 if(!isset($data[3]) || !isset($data[5])) break;

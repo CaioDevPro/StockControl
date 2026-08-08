@@ -13,9 +13,9 @@
         <p>Sistema de Controle de Estoque</p>
         
         <div class="menu">
-            <a href="/?rota=home">Início</a>
-            <a href="/?rota=sobre">Sobre</a>
-        </div>
+        <a href="<?= BASE_URL ?>/?rota=home">Início</a>
+        <a href="<?= BASE_URL ?>/?rota=sobre">Sobre</a>
+        </div> 
         
         <hr>
         
