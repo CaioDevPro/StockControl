@@ -9,6 +9,21 @@
 <body>
     <h1>Produtos cadastrados</h1>
 
+    <?php
+    $mensagens = [
+        'criado'         => 'Produto cadastrado com sucesso!',
+        'atualizado'     => 'Produto atualizado com sucesso!',
+        'excluido'       => 'Produto excluído com sucesso!',
+        'nao_encontrado' => 'Produto não encontrado.',
+    ];
+    $msg = $_GET['msg'] ?? null;
+    ?>
+
+    <?php if ($msg && isset($mensagens[$msg])): ?>
+        <?php $cor = ($msg === 'nao_encontrado') ? 'red' : 'green'; ?>
+        <p style="color: <?= $cor ?>;"><?= htmlspecialchars($mensagens[$msg]) ?></p>
+    <?php endif; ?>
+
     <p><a href="<?= BASE_URL ?>/?rota=produtos/novo">+ Novo produto</a></p>
 
     <?php if (empty($produtos)): ?>
@@ -21,6 +36,7 @@
                 <th>Qtd</th>
                 <th>Estoque mín.</th>
                 <th>Preço</th>
+                <th>Ações</th>
             </tr>
             <?php foreach ($produtos as $produto): ?>
                 <tr>
@@ -29,6 +45,12 @@
                     <td><?= htmlspecialchars($produto['qtd']) ?></td>
                     <td><?= htmlspecialchars($produto['estoque_minimo']) ?></td>
                     <td>R$ <?= number_format($produto['preco'], 2, ',', '.') ?></td>
+                    <td>
+                        <a href="<?= BASE_URL ?>/?rota=produtos/editar&id=<?= $produto['id'] ?>">Editar</a>
+                        |
+                        <a href="<?= BASE_URL ?>/?rota=produtos/deletar&id=<?= $produto['id'] ?>"
+                           onclick="return confirm('Tem certeza que deseja excluir este produto?');">Excluir</a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>

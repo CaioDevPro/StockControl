@@ -10,8 +10,8 @@
     <h1>Novo Produto</h1>
 
     <?php if (isset($_GET['erro'])): ?>
-        <p style="color:red;">Preencha ao menos a descrição do produto.</p>
-    <?php endif; ?>
+    <p style="color:red;"><?= htmlspecialchars($_GET['erro']) ?></p>
+<?php endif; ?>
 
     <form action="<?= BASE_URL ?>/?rota=produtos/criar" method="post">
         <label>Descrição:</label><br>

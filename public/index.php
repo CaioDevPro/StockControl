@@ -3,17 +3,34 @@
 define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
 
 spl_autoload_register(function ($class) {
+    // Se for Controller (ex: HomeController)
     $file = __DIR__ . '/../src/controllers/' . $class . '.php';
-    if (file_exists($file)) { require $file; return; }
-
+    if (file_exists($file)) {
+        require $file;
+        return;
+    }
+    
+    // Se for Model (ex: UserModel)
     $file = __DIR__ . '/../src/models/' . $class . '.php';
-    if (file_exists($file)) { require $file; return; }
+    if (file_exists($file)) {
+        require $file;
+        return;
+    }
 
+    // Se for Config (ex: Database)
     $file = __DIR__ . '/../src/config/' . $class . '.php';
-    if (file_exists($file)) { require $file; return; }
+    if (file_exists($file)) {
+        require $file;
+        return;
+    }
 });
 
+// Pegar a rota da URL
 $rota = $_GET['rota'] ?? 'home';
+
+// ============================================
+// ROTAS DO SISTEMA
+// ============================================
 
 if ($rota === 'home' || $rota === '') {
     $controller = new HomeController();
@@ -43,6 +60,18 @@ elseif ($rota === 'produtos/novo') {
 elseif ($rota === 'produtos/criar') {
     $controller = new ProductController();
     $controller->criar();
+}
+elseif ($rota === 'produtos/editar') {
+    $controller = new ProductController();
+    $controller->editar();
+}
+elseif ($rota === 'produtos/atualizar') {
+    $controller = new ProductController();
+    $controller->atualizar();
+}
+elseif ($rota === 'produtos/deletar') {
+    $controller = new ProductController();
+    $controller->deletar();
 }
 else {
     http_response_code(404);
