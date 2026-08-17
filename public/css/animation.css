@@ -22,3 +22,10 @@ input:hover::placeholder{
     text-decoration: underline;
     color: blue;
 }
+
+header .menu a{
+    transition: all 0.2s ease;
+}
+header .menu a:hover{
+    color: white;
+}
