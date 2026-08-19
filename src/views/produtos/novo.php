@@ -8,10 +8,11 @@
 </head>
 <body>
     <h1>Novo Produto</h1>
+    <p><a href="<?= BASE_URL ?>/?rota=logout">Sair</a></p>
 
     <?php if (isset($_GET['erro'])): ?>
-    <p style="color:red;"><?= htmlspecialchars($_GET['erro']) ?></p>
-<?php endif; ?>
+        <p style="color:red;"><?= htmlspecialchars($_GET['erro']) ?></p>
+    <?php endif; ?>
 
     <form action="<?= BASE_URL ?>/?rota=produtos/criar" method="post">
         <label>Descrição:</label><br>

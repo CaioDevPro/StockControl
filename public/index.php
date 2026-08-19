@@ -49,6 +49,10 @@ elseif ($rota === 'login') {
         $controller->index();
     }
 }
+elseif ($rota === 'logout') {
+    $controller = new LoginController();
+    $controller->logout();
+}
 elseif ($rota === 'produtos') {
     $controller = new ProductController();
     $controller->listar();

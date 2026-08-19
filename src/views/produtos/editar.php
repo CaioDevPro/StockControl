@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Editar Produto</h1>
+    <p><a href="<?= BASE_URL ?>/?rota=logout">Sair</a></p>
 
     <?php if (isset($_GET['erro'])): ?>
         <p style="color:red;"><?= htmlspecialchars($_GET['erro']) ?></p>

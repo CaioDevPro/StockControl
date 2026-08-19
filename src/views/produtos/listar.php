@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>Produtos cadastrados</h1>
+    <p><a href="<?= BASE_URL ?>/?rota=logout">Sair</a></p>
 
     <?php
     $mensagens = [
