@@ -18,7 +18,7 @@ class LoginController {
         $user = new User($email, $password);
 
         if ($user->login_validate()) {
-            header('Location: ' . BASE_URL . '/?rota=produtos');
+            header('Location: ' . BASE_URL . '/?rota=painel');
             exit;
         } else {
             header('Location: ' . BASE_URL . '/?rota=login&erro=1');

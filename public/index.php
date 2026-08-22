@@ -4,34 +4,17 @@ define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
 require_once __DIR__ . '/../src/config/auth.php';
 
 spl_autoload_register(function ($class) {
-    // Se for Controller (ex: HomeController)
     $file = __DIR__ . '/../src/controllers/' . $class . '.php';
-    if (file_exists($file)) {
-        require $file;
-        return;
-    }
-    
-    // Se for Model (ex: UserModel)
-    $file = __DIR__ . '/../src/models/' . $class . '.php';
-    if (file_exists($file)) {
-        require $file;
-        return;
-    }
+    if (file_exists($file)) { require $file; return; }
 
-    // Se for Config (ex: Database)
+    $file = __DIR__ . '/../src/models/' . $class . '.php';
+    if (file_exists($file)) { require $file; return; }
+
     $file = __DIR__ . '/../src/config/' . $class . '.php';
-    if (file_exists($file)) {
-        require $file;
-        return;
-    }
+    if (file_exists($file)) { require $file; return; }
 });
 
-// Pegar a rota da URL
 $rota = $_GET['rota'] ?? 'home';
-
-// ============================================
-// ROTAS DO SISTEMA
-// ============================================
 
 if ($rota === 'home' || $rota === '') {
     $controller = new HomeController();
@@ -53,6 +36,10 @@ elseif ($rota === 'login') {
 elseif ($rota === 'logout') {
     $controller = new LoginController();
     $controller->logout();
+}
+elseif ($rota === 'painel') {
+    $controller = new PainelController();
+    $controller->index();
 }
 elseif ($rota === 'produtos') {
     $controller = new ProductController();
@@ -76,6 +63,54 @@ elseif ($rota === 'produtos/atualizar') {
 }
 elseif ($rota === 'produtos/deletar') {
     $controller = new ProductController();
+    $controller->deletar();
+}
+elseif ($rota === 'categorias') {
+    $controller = new CategoryController();
+    $controller->listar();
+}
+elseif ($rota === 'categorias/novo') {
+    $controller = new CategoryController();
+    $controller->novo();
+}
+elseif ($rota === 'categorias/criar') {
+    $controller = new CategoryController();
+    $controller->criar();
+}
+elseif ($rota === 'categorias/editar') {
+    $controller = new CategoryController();
+    $controller->editar();
+}
+elseif ($rota === 'categorias/atualizar') {
+    $controller = new CategoryController();
+    $controller->atualizar();
+}
+elseif ($rota === 'categorias/deletar') {
+    $controller = new CategoryController();
+    $controller->deletar();
+}
+elseif ($rota === 'fornecedores') {
+    $controller = new SupplierController();
+    $controller->listar();
+}
+elseif ($rota === 'fornecedores/novo') {
+    $controller = new SupplierController();
+    $controller->novo();
+}
+elseif ($rota === 'fornecedores/criar') {
+    $controller = new SupplierController();
+    $controller->criar();
+}
+elseif ($rota === 'fornecedores/editar') {
+    $controller = new SupplierController();
+    $controller->editar();
+}
+elseif ($rota === 'fornecedores/atualizar') {
+    $controller = new SupplierController();
+    $controller->atualizar();
+}
+elseif ($rota === 'fornecedores/deletar') {
+    $controller = new SupplierController();
     $controller->deletar();
 }
 else {
