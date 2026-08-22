@@ -1,6 +1,7 @@
 <?php
 
 define('BASE_URL', rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'));
+require_once __DIR__ . '/../src/config/auth.php';
 
 spl_autoload_register(function ($class) {
     // Se for Controller (ex: HomeController)

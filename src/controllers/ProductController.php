@@ -9,11 +9,14 @@ class ProductController {
 
     // Mostra o formulário de cadastro
     public function novo() {
+        exigirLogin();
         include __DIR__ . '/../views/produtos/novo.php';
     }
 
     // Processa o formulário (Create)
     public function criar() {
+        exigirLogin();
+
         $dados = [
             'descricao'      => trim($_POST['descricao'] ?? ''),
             'qtd'            => (int)($_POST['qtd'] ?? 0),
@@ -38,12 +41,15 @@ class ProductController {
 
     // Lista os produtos (Read)
     public function listar() {
+        exigirLogin();
         $produtos = $this->model->listarTodos();
         include __DIR__ . '/../views/produtos/listar.php';
     }
 
     // Mostra o formulário de edição, já preenchido
     public function editar() {
+        exigirLogin();
+
         $id = (int)($_GET['id'] ?? 0);
         $produto = $this->model->buscarPorId($id);
 
@@ -57,6 +63,8 @@ class ProductController {
 
     // Processa o formulário de edição (Update)
     public function atualizar() {
+        exigirLogin();
+
         $id = (int)($_POST['id'] ?? 0);
 
         $dados = [
@@ -81,8 +89,10 @@ class ProductController {
         exit;
     }
 
-    // Remove um produto (Delete)
+    // Remove um produto (Delete) - apenas administradores
     public function deletar() {
+        exigirAdmin();
+
         $id = (int)($_GET['id'] ?? 0);
         $this->model->deletar($id);
 
