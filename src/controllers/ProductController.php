@@ -7,9 +7,11 @@ class ProductController {
         $this->model = new ProductModel();
     }
 
-    // Mostra o formulário de cadastro
+        // Mostra o formulário de cadastro
     public function novo() {
         exigirLogin();
+        $categorias = (new CategoryModel())->listarTodos();
+        $fornecedores = (new SupplierModel())->listarTodos();
         include __DIR__ . '/../views/produtos/novo.php';
     }
 
@@ -46,7 +48,7 @@ class ProductController {
         include __DIR__ . '/../views/produtos/listar.php';
     }
 
-    // Mostra o formulário de edição, já preenchido
+        // Mostra o formulário de edição, já preenchido
     public function editar() {
         exigirLogin();
 
@@ -57,6 +59,9 @@ class ProductController {
             header('Location: ' . BASE_URL . '/?rota=produtos&msg=nao_encontrado');
             exit;
         }
+
+        $categorias = (new CategoryModel())->listarTodos();
+        $fornecedores = (new SupplierModel())->listarTodos();
 
         include __DIR__ . '/../views/produtos/editar.php';
     }

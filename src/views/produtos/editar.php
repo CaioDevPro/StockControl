@@ -23,11 +23,31 @@
         <label>Quantidade:</label><br>
         <input type="number" name="qtd" value="<?= htmlspecialchars($produto['qtd']) ?>"><br><br>
 
-        <label>Estoque mínimo:</label><br>
+                <label>Estoque mínimo:</label><br>
         <input type="number" name="estoque_minimo" value="<?= htmlspecialchars($produto['estoque_minimo']) ?>"><br><br>
 
         <label>Preço:</label><br>
         <input type="number" step="0.01" name="preco" value="<?= htmlspecialchars($produto['preco']) ?>"><br><br>
+
+        <label>Categoria:</label><br>
+        <select name="id_categoria">
+            <option value="">-- Nenhuma --</option>
+            <?php foreach ($categorias as $categoria): ?>
+                <option value="<?= $categoria['id'] ?>" <?= ($produto['id_categoria'] == $categoria['id']) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($categoria['nome']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select><br><br>
+
+        <label>Fornecedor:</label><br>
+        <select name="id_fornecedor">
+            <option value="">-- Nenhum --</option>
+            <?php foreach ($fornecedores as $fornecedor): ?>
+                <option value="<?= $fornecedor['id'] ?>" <?= ($produto['id_fornecedor'] == $fornecedor['id']) ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($fornecedor['empresa']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select><br><br>
 
         <button type="submit">Salvar alterações</button>
     </form>
