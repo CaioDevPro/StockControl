@@ -45,27 +45,86 @@ try {
     // 3. Seleciona o banco.
     $pdo->exec("USE `{$nomeBanco}`");
 
-    // 4. Cria a tabela usada atualmente pelo ProductModel.php.
+    // 4. Cria a tabela categorias (precisa existir antes de produtos, por causa da FK).
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS `categorias` (
+            `id` BIGINT NOT NULL AUTO_INCREMENT,
+            `nome` VARCHAR(30) NOT NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    $mensagens[] = "Tabela 'categorias' verificada/criada com sucesso.";
+
+    // 5. Cria a tabela fornecedores (também precisa existir antes de produtos).
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS `fornecedores` (
+            `id` BIGINT NOT NULL AUTO_INCREMENT,
+            `cnpj` CHAR(14) NOT NULL,
+            `empresa` VARCHAR(50) NOT NULL,
+            `email` VARCHAR(255) NULL,
+            `telefone` VARCHAR(14) NULL,
+            `endereco` VARCHAR(512) NULL,
+            PRIMARY KEY (`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    $mensagens[] = "Tabela 'fornecedores' verificada/criada com sucesso.";
+
+    // 6. Cria a tabela produtos, já com as FKs pra categorias e fornecedores.
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS `produtos` (
-            `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            `id` BIGINT NOT NULL AUTO_INCREMENT,
+            `cod_barras` BIGINT NULL,
             `descricao` VARCHAR(255) NOT NULL,
             `qtd` INT NOT NULL DEFAULT 0,
             `estoque_minimo` INT NOT NULL DEFAULT 0,
-            `preco` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-            `id_categoria` INT UNSIGNED NULL,
-            `id_fornecedor` INT UNSIGNED NULL,
+            `preco` DECIMAL(12,2) NOT NULL DEFAULT 0.00,
+            `id_categoria` BIGINT NULL,
+            `id_fornecedor` BIGINT NULL,
+            `img_url` VARCHAR(512) NULL,
             PRIMARY KEY (`id`),
             INDEX `idx_produtos_categoria` (`id_categoria`),
-            INDEX `idx_produtos_fornecedor` (`id_fornecedor`)
-        ) ENGINE=InnoDB
-          DEFAULT CHARSET=utf8mb4
-          COLLATE=utf8mb4_unicode_ci
+            INDEX `idx_produtos_fornecedor` (`id_fornecedor`),
+            CONSTRAINT `fk_produtos_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categorias`(`id`),
+            CONSTRAINT `fk_produtos_fornecedor` FOREIGN KEY (`id_fornecedor`) REFERENCES `fornecedores`(`id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     ");
-
     $mensagens[] = "Tabela 'produtos' verificada/criada com sucesso.";
 
-    // 5. Mostra a estrutura encontrada.
+    // 7. Cria a tabela usuarios.
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS `usuarios` (
+            `id` BIGINT NOT NULL AUTO_INCREMENT,
+            `cpf` CHAR(11) NOT NULL,
+            `nome` VARCHAR(60) NOT NULL,
+            `email` VARCHAR(255) NOT NULL,
+            `senha` VARCHAR(512) NOT NULL,
+            `perfil` ENUM('admin','user') NOT NULL DEFAULT 'user',
+            `dt_criacao` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`),
+            UNIQUE KEY `uq_usuarios_cpf` (`cpf`),
+            UNIQUE KEY `uq_usuarios_email` (`email`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    ");
+    $mensagens[] = "Tabela 'usuarios' verificada/criada com sucesso.";
+
+    // 8. Insere o usuário administrador padrão, apenas se ainda não existir.
+    $existeAdmin = $pdo->query("SELECT COUNT(*) AS total FROM usuarios WHERE email = 'admin@administrativo.com'")->fetch();
+
+    if ((int)$existeAdmin['total'] === 0) {
+        $senhaHash = password_hash('Adm1n%26', PASSWORD_DEFAULT);
+
+        $stmt = $pdo->prepare("
+            INSERT INTO usuarios (nome, cpf, email, senha, perfil)
+            VALUES ('Admin', '10000000000', 'admin@administrativo.com', :senha, 'admin')
+        ");
+        $stmt->execute([':senha' => $senhaHash]);
+
+        $mensagens[] = "Usuário administrador padrão criado com sucesso.";
+    } else {
+        $mensagens[] = "Usuário administrador padrão já existia — nenhuma alteração feita.";
+    }
+
+    // 9. Mostra a estrutura encontrada em produtos, só como conferência visual.
     $colunas = $pdo->query("DESCRIBE `produtos`")->fetchAll();
 
 } catch (PDOException $e) {
@@ -174,6 +233,7 @@ try {
     <p>
         <strong>Instalação concluída.</strong>
         Agora você pode acessar a aplicação do StockControl.
+        Use <code>admin@administrativo.com</code> / <code>Adm1n%26</code> para entrar como administrador.
     </p>
 
     <p>
