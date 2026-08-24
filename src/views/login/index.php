@@ -13,7 +13,11 @@
         <h1>Stock Control</h1>
         <h2>Controle de Estoque</h2>
     </header>
-    <div class="login">
+        <div class="login">
+        <?php if (isset($_GET['erro'])): ?>
+            <p style="color:red;">E-mail ou senha incorretos.</p>
+        <?php endif; ?>
+
         <form action="<?= BASE_URL ?>/?rota=login" method="post" class="login-form">
             <div class="div-email">
                 <input type="email" name="email" id="email-input" placeholder="email@email.com" required>
