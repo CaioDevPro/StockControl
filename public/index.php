@@ -41,6 +41,14 @@ elseif ($rota === 'painel') {
     $controller = new PainelController();
     $controller->index();
 }
+elseif ($rota === 'usuarios/novo') {
+    $controller = new UserController();
+    $controller->novo();
+}
+elseif ($rota === 'usuarios/criar') {
+    $controller = new UserController();
+    $controller->criar();
+}
 elseif ($rota === 'produtos') {
     $controller = new ProductController();
     $controller->listar();

@@ -17,7 +17,7 @@
         <li><a href="<?= BASE_URL ?>/?rota=produtos">Produtos</a></li>
         <li><a href="<?= BASE_URL ?>/?rota=categorias">Categorias</a></li>
         <li><a href="<?= BASE_URL ?>/?rota=fornecedores">Fornecedores</a></li>
-        <li><a href="<?= BASE_URL ?>/?rota=usuarios/novo">Estoque Baixo</a></li>
+                <li><a href="<?= BASE_URL ?>/?rota=produtos/estoque-baixo">Estoque Baixo</a></li>
     </ul>
 </body>
 </html>

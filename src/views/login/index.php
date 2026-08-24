@@ -23,7 +23,7 @@
             </div>
             <button id="send-button">ENTRAR</button>
         </form>
-        <p>Não tem uma conta? <a href="<?= BASE_URL ?>/?rota=cadastro">Cadastre-se</a></p>
+        <p>Não tem uma conta? <a href="<?= BASE_URL ?>/?rota=usuarios/novo">Cadastre-se</a></p>
     </div>
 </body>
 </html>

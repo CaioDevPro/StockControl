@@ -51,4 +51,21 @@ class User {
 
         return false;
     }
+
+    // CREATE - Cadastra um novo usuário (RF01)
+    public function cadastrar(string $nome, string $cpf): bool {
+        $sql = "INSERT INTO usuarios (nome, cpf, email, senha, perfil)
+                VALUES (:nome, :cpf, :email, :senha, 'user')";
+
+        $senhaHash = password_hash($this->password, PASSWORD_DEFAULT);
+
+        $stmt = Database::getConexao()->prepare($sql);
+
+        return $stmt->execute([
+            ':nome'  => $nome,
+            ':cpf'   => $cpf,
+            ':email' => $this->email,
+            ':senha' => $senhaHash,
+        ]);
+    }
 }
